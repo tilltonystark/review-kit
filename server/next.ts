@@ -3,7 +3,7 @@
  *
  *   // app/api/review-kit/route.ts
  *   export { GET, POST, OPTIONS } from "@/review-kit/next";
- *   export const dynamic = "force-dynamic"; // Next needs this written in the route file itself
+ *   export const dynamic = "force-dynamic"; // in the route file itself; leave out with cacheComponents
  */
 import { configFromEnv, createReviewHandler } from "./core";
 
