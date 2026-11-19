@@ -1,0 +1,30 @@
+{
+  "name": "review-kit",
+  "version": "0.1.0",
+  "description": "Click any element on your website, leave a comment, and it lands on GitHub for Claude to fix.",
+  "license": "MIT",
+  "type": "module",
+  "repository": "github:tilltonystark/review-kit",
+  "exports": {
+    "./server": "./dist/server/core.js",
+    "./next": "./dist/server/next.js",
+    "./node": "./dist/server/node.js",
+    "./vercel": "./dist/server/vercel.js",
+    "./netlify": "./dist/server/netlify.js",
+    "./cloudflare": "./dist/server/cloudflare.js"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "e2e": "node test/e2e.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "html-to-image": "^1.11.11",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
+    "happy-dom": "^15.0.0",
+    "@types/node": "^22.0.0"
+  }
+}

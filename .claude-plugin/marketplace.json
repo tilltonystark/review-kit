@@ -1,0 +1,11 @@
+{
+  "name": "review-kit",
+  "owner": { "name": "tilltonystark" },
+  "plugins": [
+    {
+      "name": "review-kit",
+      "source": "./",
+      "description": "Click-to-comment on any website. Comments land on GitHub; Claude fixes them on a branch and opens a PR."
+    }
+  ]
+}

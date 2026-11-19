@@ -1,0 +1,7 @@
+{
+  "name": "review-kit",
+  "description": "Click-to-comment on any website. Comments land on GitHub; Claude fixes them on a branch and opens a PR.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": "https://github.com/tilltonystark/review-kit"
+}
