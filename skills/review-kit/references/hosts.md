@@ -10,6 +10,7 @@ Read only the section for the site's host. Every section: which kit file to copy
   export { GET, POST, OPTIONS } from "@/review-kit/next"; // adjust the import path
   export const dynamic = "force-dynamic";
   ```
+  If `next.config` has `cacheComponents: true` (Next 16+), leave out the `dynamic` line: the build refuses it, and the route is dynamic anyway because it reads the request.
 - Pages Router only: add `pages/api/review-kit.ts` using `server/node.ts`: `export default reviewKitMiddleware(); export const config = { api: { bodyParser: false } };`
 - Script tag in `app/layout.tsx` with `next/script` is fine, but a plain `<script type="module">` in the body works and is simpler.
 - Then the host section below for secrets.
