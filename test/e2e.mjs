@@ -5,7 +5,7 @@ import { readFile } from "node:fs/promises";
 import { join, extname } from "node:path";
 import { createRequire } from "node:module";
 const { chromium, devices } = createRequire(import.meta.url)("playwright");
-import { reviewKitMiddleware } from "../dist/server/adapters/node.js";
+import { reviewKitMiddleware } from "../dist/server/node.js";
 
 const posted = [];
 const fakeFetch = async (url, init = {}) => {
@@ -39,7 +39,7 @@ const browser = await chromium.launch();
 let failed = false;
 const check = (ok, msg) => { console.log(`${ok ? "✓" : "✗"} ${msg}`); if (!ok) failed = true; };
 
-for (const [name, ctxOpts] of [["desktop", { viewport: { width: 1280, height: 800 } }], ["phone", devices["iPhone 13"]]]) {
+for (const [name, ctxOpts] of [["desktop", { viewport: { width: 1280, height: 800 }, deviceScaleFactor: 2 }], ["phone", devices["iPhone 13"]]]) {
   const before = posted.length;
   const ctx = await browser.newContext(ctxOpts);
   const page = await ctx.newPage();
@@ -53,8 +53,8 @@ for (const [name, ctxOpts] of [["desktop", { viewport: { width: 1280, height: 80
   check(page.url() === "http://localhost:4317/", `${name}: clicking a link while picking does not navigate`);
   await host.locator("textarea").waitFor();
   await page.waitForTimeout(300);
-  await page.screenshot({ path: `test/out-${name}-2-compose.png` });
   await host.locator("textarea").fill("Make this button bigger");
+  await page.screenshot({ path: `test/out-${name}-2-compose.png` });
   await host.locator("button.send").click();
   await page.waitForTimeout(4000);
   await page.screenshot({ path: `test/out-${name}-3-sent.png` });

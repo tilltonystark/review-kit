@@ -196,3 +196,18 @@ describe("config", () => {
     expect(cleanToken(' "token ghp_x" ')).toBe("ghp_x");
   });
 });
+
+describe("production lock", () => {
+  it("cannot be switched off on production", async () => {
+    const res = await createReviewHandler({ ...base, environment: "production", requireKey: false, reviewers: { Om: "k_12345678" } })(post({ comment: "x", element }));
+    expect(res.status).toBe(401);
+  });
+  it("lets private previews skip keys when asked", async () => {
+    const gh = fakeGitHub([
+      { method: "GET", path: /^\/pulls\?/, body: [{ number: 1, html_url: "u" }] },
+      { method: "POST", path: /comments$/, body: { html_url: "c" } },
+    ]);
+    const res = await createReviewHandler({ ...base, requireKey: false, reviewers: { Om: "k_12345678" }, fetch: gh.fetchFn })(post({ comment: "x", element }));
+    expect(res.status).toBe(200);
+  });
+});

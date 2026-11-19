@@ -1,0 +1,28 @@
+# Review Kit: keeps the `staging` branch identical to `main`, so its preview
+# deployment (with the Review Kit widget) always shows exactly what is live.
+# Comments left there go to the "Site review: staging" issue.
+# Never commit to `staging` directly: the next merge overwrites it.
+# Change `main` below if your default branch has another name.
+name: Sync staging with main
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-staging
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Point staging at main
+        run: git push --force origin HEAD:refs/heads/staging

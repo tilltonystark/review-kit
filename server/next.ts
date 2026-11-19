@@ -2,9 +2,10 @@
  * Next.js (App Router) adapter.
  *
  *   // app/api/review-kit/route.ts
- *   export { GET, POST, OPTIONS, dynamic } from "./review-kit"; // file copied by the skill
+ *   export { GET, POST, OPTIONS } from "@/review-kit/next";
+ *   export const dynamic = "force-dynamic"; // Next needs this written in the route file itself
  */
-import { configFromEnv, createReviewHandler } from "../core";
+import { configFromEnv, createReviewHandler } from "./core";
 
 const handler = createReviewHandler(() => configFromEnv(process.env));
 

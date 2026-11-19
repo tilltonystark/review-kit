@@ -1,0 +1,10 @@
+# Deploy: npx wrangler deploy   (from this folder)
+# Then:   npx wrangler secret put REVIEW_KIT_GITHUB_TOKEN
+#         npx wrangler secret put REVIEW_KIT_REVIEWERS
+name = "review-kit-relay"
+main = "worker.ts"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Which site goes to which repo. Edit, then deploy again.
+REVIEW_KIT_SITES = '{"https://example.com": {"repo": "your-name/your-site"}}'

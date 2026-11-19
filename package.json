@@ -7,8 +7,11 @@
   "repository": "github:tilltonystark/review-kit",
   "exports": {
     "./server": "./dist/server/core.js",
-    "./next": "./dist/server/adapters/next.js",
-    "./node": "./dist/server/adapters/node.js"
+    "./next": "./dist/server/next.js",
+    "./node": "./dist/server/node.js",
+    "./vercel": "./dist/server/vercel.js",
+    "./netlify": "./dist/server/netlify.js",
+    "./cloudflare": "./dist/server/cloudflare.js"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

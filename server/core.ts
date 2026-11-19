@@ -40,7 +40,10 @@ export type ReviewKitConfig = {
    * comment needs one of these keys and is signed with the reviewer's name.
    */
   reviewers?: Record<string, string>;
-  /** Require a reviewer key even off production. Default: only on production. */
+  /**
+   * Off production: require a reviewer key? Default: yes when `reviewers` is
+   * set. Production always requires one, whatever this says.
+   */
   requireKey?: boolean;
   /** Turn the whole thing off without removing code. */
   disabled?: boolean;
@@ -480,7 +483,9 @@ export function createReviewHandler(input: ReviewKitConfig | ((request: Request)
     }
 
     const env = config.environment ?? "production";
-    const keyRequired = config.requireKey ?? (env === "production" || !!config.reviewers);
+    // Production always needs a key. Elsewhere: needed when keys exist, unless
+    // turned off for private previews (REVIEW_KIT_REQUIRE_KEY=0).
+    const keyRequired = env === "production" || (config.requireKey ?? !!config.reviewers);
     const key = request.headers.get("x-review-key")?.trim() || null;
     const reviewer = reviewerFor(key, config.reviewers);
     const keyOk = !keyRequired || !!reviewer;

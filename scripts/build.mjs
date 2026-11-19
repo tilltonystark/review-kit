@@ -18,7 +18,7 @@ await build({
 });
 
 await build({
-  entryPoints: ["server/core.ts", "server/adapters/next.ts", "server/adapters/node.ts"],
+  entryPoints: ["server/core.ts", "server/next.ts", "server/node.ts", "server/vercel.ts", "server/netlify.ts", "server/cloudflare.ts"],
   outdir: "dist/server",
   outbase: "server",
   bundle: true,

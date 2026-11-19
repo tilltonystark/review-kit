@@ -5,7 +5,7 @@
  *   app.use("/api/review-kit", reviewKitMiddleware());
  */
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { configFromEnv, createReviewHandler, type ReviewKitConfig } from "../core";
+import { configFromEnv, createReviewHandler, type ReviewKitConfig } from "./core";
 
 export function reviewKitMiddleware(config?: ReviewKitConfig) {
   const handler = createReviewHandler(config ?? (() => configFromEnv(process.env)));
